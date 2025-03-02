@@ -10,11 +10,8 @@ import org.springframework.beans.factory.support.CglibSubclassingInstantiationSt
 import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
 import java.util.List;
 
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BeanFactoryTest {
@@ -71,5 +68,20 @@ public class BeanFactoryTest {
         System.out.println(helloService.toString());
         assertEquals("hello", helloService.getFoo());
         assertEquals("world", helloService.getBar());
+    }
+
+    @Test
+    public void testPopulateBeanWithPropertyValues() throws Exception {
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("name", "derek"));
+        propertyValues.addPropertyValue(new PropertyValue("age", 18));
+        BeanDefinition beanDefinition = new BeanDefinition(Person.class, propertyValues);
+        beanFactory.registerBeanDefinition("person", beanDefinition);
+
+        Person person = (Person) beanFactory.getBean("person");
+        System.out.println(person);
+        assertEquals("derek", person.getName());
+        assertEquals(18, person.getAge());
     }
 }

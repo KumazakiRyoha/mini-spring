@@ -1,11 +1,10 @@
 package org.springframework.beans.factory;
 
 public class Person {
+
     private String name;
 
-    public Person(String name) {
-        this.name = name;
-    }
+    private int age;
 
     public String getName() {
         return name;
@@ -15,8 +14,19 @@ public class Person {
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public String toString() {
-        return "Person{name='" + name + "'}";
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

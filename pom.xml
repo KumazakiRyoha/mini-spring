@@ -43,7 +43,7 @@
             <artifactId>cglib</artifactId>
             <version>3.3.0</version>
         </dependency>
-        <!-- ��� asm ������CGLIB ��Ҫ�� -->
+        <!-- ���? asm ������CGLIB ��Ҫ�� -->
         <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
@@ -71,5 +71,13 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>    StringBuilder builder = new StringBuilder();
+    for (String str : strings) {
+        builder.append(str);
+    }
+    String result = builder.toString();    StringBuilder builder = new StringBuilder();
+    for (String str : strings) {
+        builder.append(str);
+    }
+    String result = builder.toString();
 </project>
