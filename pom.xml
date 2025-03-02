@@ -50,6 +50,13 @@
             <version>9.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -71,13 +78,5 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>    StringBuilder builder = new StringBuilder();
-    for (String str : strings) {
-        builder.append(str);
-    }
-    String result = builder.toString();    StringBuilder builder = new StringBuilder();
-    for (String str : strings) {
-        builder.append(str);
-    }
-    String result = builder.toString();
+    </build>  
 </project>
