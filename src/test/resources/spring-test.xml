@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <!-- Person bean定义 -->
+    <bean id="person" class="org.springframework.beans.ioc.Person">
+        <property name="name" value="张三"/>
+        <property name="age" value="18"/>
+    </bean>
+    
+    <!-- Car bean定义，引用person bean -->
+    <bean id="car" class="org.springframework.beans.ioc.Car">
+        <property name="brand" value="奔驰"/>
+        <property name="price" value="1000000"/>
+        <property name="owner" ref="person"/>
+    </bean>
+</beans>

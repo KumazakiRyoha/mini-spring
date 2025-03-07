@@ -81,45 +81,48 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             return;
         }
 
-        // 根据对象类型分别处理
         if (bean instanceof Map) {
-            // 处理Map类型
             ((Map) bean).put(fieldName, value);
         } else if (bean instanceof List) {
-            // 处理List类型，尝试将fieldName转换为整数索引
-            try {
-                int index = Integer.parseInt(fieldName);
-                List list = (List) bean;
-                // 确保List大小足够
-                while (list.size() <= index) {
-                    list.add(null);
-                }
-                list.set(index, value);
-            } catch (NumberFormatException e) {
-                throw new BeanException("Error setting property to List: " + fieldName + " is not a valid index", e);
-            }
+            ((List) bean).add(value);
         } else {
-            // 处理普通Java Bean
             try {
-                // 1. 首先尝试setter方法
+                // 首先尝试setter方法
                 String setterMethodName = "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 
-                // 尝试获取setter方法
-                Method setterMethod = findSetterMethod(bean.getClass(), setterMethodName, value);
-                if (setterMethod != null) {
-                    // 使用setter方法设置值
-                    setterMethod.setAccessible(true);
-                    setterMethod.invoke(bean, value);
+                try {
+                    Method setter = bean.getClass().getMethod(setterMethodName, value.getClass());
+                    setter.invoke(bean, value);
                     return;
+                } catch (NoSuchMethodException e) {
+                    // 如果没有找到完全匹配的setter，尝试查找其他可能的setter
+                    Method[] methods = bean.getClass().getMethods();
+                    for (Method method : methods) {
+                        if (method.getName().equals(setterMethodName) && method.getParameterCount() == 1) {
+                            // 找到一个潜在的setter，尝试类型转换
+                            Class<?> paramType = method.getParameterTypes()[0];
+                            Object convertedValue = convertValueToType(value, paramType);
+                            if (convertedValue != null) {
+                                method.invoke(bean, convertedValue);
+                                return;
+                            }
+                        }
+                    }
                 }
 
-                // 2. 如果没有找到setter方法，尝试直接设置字段
-                java.lang.reflect.Field field = findField(bean.getClass(), fieldName);
-                if (field != null) {
-                    field.setAccessible(true);
-                    field.set(bean, value);
+                // 如果没有找到合适的setter，尝试直接设置字段
+                java.lang.reflect.Field field = bean.getClass().getDeclaredField(fieldName);
+                field.setAccessible(true);
+
+                // 尝试进行类型转换
+                Object convertedValue = convertValueToType(value, field.getType());
+                if (convertedValue != null) {
+                    field.set(bean, convertedValue);
                 } else {
-                    throw new BeanException("No such field: " + fieldName + " in class " + bean.getClass().getName());
+                    // 如果转换失败但值不为null，尝试直接设置（可能会抛出异常）
+                    if (value != null) {
+                        field.set(bean, value);
+                    }
                 }
             } catch (Exception e) {
                 throw new BeanException("Error setting property " + fieldName, e);
@@ -128,8 +131,54 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     /**
+     * 将值转换为目标类型
+     * 
+     * @param value      要转换的值
+     * @param targetType 目标类型
+     * @return 转换后的值，如果无法转换则返回null
+     */
+    private Object convertValueToType(Object value, Class<?> targetType) {
+        if (value == null) {
+            return null;
+        }
+
+        // 如果值已经是目标类型，直接返回
+        if (targetType.isInstance(value)) {
+            return value;
+        }
+
+        // String到基本类型的转换
+        if (value instanceof String) {
+            String strValue = (String) value;
+
+            if (targetType == int.class || targetType == Integer.class) {
+                return Integer.parseInt(strValue);
+            } else if (targetType == long.class || targetType == Long.class) {
+                return Long.parseLong(strValue);
+            } else if (targetType == double.class || targetType == Double.class) {
+                return Double.parseDouble(strValue);
+            } else if (targetType == float.class || targetType == Float.class) {
+                return Float.parseFloat(strValue);
+            } else if (targetType == boolean.class || targetType == Boolean.class) {
+                return Boolean.parseBoolean(strValue);
+            } else if (targetType == short.class || targetType == Short.class) {
+                return Short.parseShort(strValue);
+            } else if (targetType == byte.class || targetType == Byte.class) {
+                return Byte.parseByte(strValue);
+            } else if (targetType == char.class || targetType == Character.class && strValue.length() == 1) {
+                return strValue.charAt(0);
+            }
+        }
+
+        // 其他类型转换逻辑可以根据需要添加
+
+        return null; // 无法转换
+    }
+
+    /**
      * 查找合适的setter方法
      */
+    @SuppressWarnings("unused")
     private Method findSetterMethod(Class<?> beanClass, String setterMethodName, Object value) {
         // 先直接查找精确匹配的setter方法
         if (value != null) {
@@ -156,6 +205,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     /**
+     * 
      * 查找字段，支持向上查找继承层次
      */
     private java.lang.reflect.Field findField(Class<?> beanClass, String fieldName) {
@@ -171,6 +221,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     /**
+     * 
      * 使用实例化策略创建bean实例
      * 
      * @param instantiationStrategy

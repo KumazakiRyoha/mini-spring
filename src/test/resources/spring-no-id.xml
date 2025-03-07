@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <!-- 不指定id的bean定义，将使用类名首字母小写作为bean名称 -->
+    <bean class="org.springframework.beans.ioc.SampleBean">
+        <property name="value" value="测试值"/>
+    </bean>
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <!-- Teacher bean定义 -->
+    <bean id="teacher" class="org.springframework.beans.ioc.Teacher">
+        <property name="name" value="李老师"/>
+        <property name="subject" value="数学"/>
+    </bean>
+    
+    <!-- Student bean定义 -->
+    <bean id="student" class="org.springframework.beans.ioc.Student">
+        <property name="name" value="小明"/>
+        <property name="grade" value="三年级"/>
+    </bean>
+    
+    <!-- Classroom bean定义，引用teacher和student bean -->
+    <bean id="classroom" class="org.springframework.beans.ioc.Classroom">
+        <property name="name" value="三年二班"/>
+        <property name="teacher" ref="teacher"/>
+        <property name="students" ref="student"/>
+    </bean>
+</beans>
