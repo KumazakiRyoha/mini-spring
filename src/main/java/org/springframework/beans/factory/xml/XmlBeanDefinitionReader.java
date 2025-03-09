@@ -40,6 +40,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         super(registry);
     }
 
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
+        super(registry, resourceLoader);
+    }
+
     @Override
     public void loadBeanDefinitions(String location) throws BeanException {
         ResourceLoader resourceLoader = getResourceLoader();
@@ -56,7 +60,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             } finally {
                 inputStream.close();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new BeanException("IOException parsing XML document from " + resource, e);
         }
     }
@@ -107,6 +111,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                                 String valueAttribute = propertyElement.getAttribute(VALUE_ATTRIBUTE);
                                 String refAttribute = propertyElement.getAttribute(REF_ATTRIBUTE);
 
+                                if (StringUtils.isEmpty(nameAttribute)) {
+                                    throw new BeanException("<property> must contain name attribute");
+                                }
+
                                 Object value = valueAttribute;
                                 if (StringUtils.isNotEmpty(refAttribute)) {
                                     value = new BeanReference(refAttribute);
@@ -116,6 +124,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
                             }
                         }
+                    }
+                    if (getRegistry().containsBeanDefinition(beanName)) {
+                        throw new BeanException("Duplicate beanName [" + beanName + "] in bean definitions");
+
                     }
                     getRegistry().registerBeanDefinition(beanName, beanDefinition);
                 }
