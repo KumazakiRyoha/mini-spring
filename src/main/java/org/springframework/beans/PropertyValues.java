@@ -3,7 +3,6 @@ package org.springframework.beans;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PropertyValues {
 
     /**
@@ -13,14 +12,25 @@ public class PropertyValues {
 
     /**
      * 添加一个属性值对象
+     * 
      * @param pv 要添加的PropertyValue对象
      */
     public void addPropertyValue(PropertyValue pv) {
+        for (int i = 0; i < this.propertyValueList.size(); i++) {
+            PropertyValue propertyValue = this.propertyValueList.get(i);
+            if (propertyValue.getName().equals(pv.getName())) {
+                // 如果属性名称相同，则覆盖
+                this.propertyValueList.set(i, pv);
+                return;
+
+            }
+        }
         this.propertyValueList.add(pv);
     }
 
     /**
      * 获取所有的属性值对象
+     * 
      * @return PropertyValue对象数组
      */
     public PropertyValue[] getPropertyValues() {
@@ -29,6 +39,7 @@ public class PropertyValues {
 
     /**
      * 根据属性名称查找对应的PropertyValue对象
+     * 
      * @param propertyName 属性名称
      * @return 如果找到则返回对应的PropertyValue对象，否则返回null
      */
