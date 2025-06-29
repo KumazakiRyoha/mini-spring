@@ -39,4 +39,10 @@ public class DefaultBeanFactory implements BeanFactory {
         singletonObjects.put(name, bean);
         beanDefinitionMap.put(name, new BeanDefinition(bean.getClass()));
     }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeanException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getBean'");
+    }
 }

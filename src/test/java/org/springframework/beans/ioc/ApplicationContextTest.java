@@ -1,6 +1,8 @@
 package org.springframework.beans.ioc;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.ioc.bean.Car;
+import org.springframework.beans.ioc.bean.Person;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,5 +1,7 @@
 package org.springframework.context;
 
+import org.springframework.beans.factory.support.BeansException;
+
 public interface ConfigurableApplicationContext extends ApplicationContext {
 
     /**
@@ -7,6 +9,16 @@ public interface ConfigurableApplicationContext extends ApplicationContext {
      * 
      * @throws ApplicationContextException
      */
-    void refresh() throws ApplicationContextException;
+    void refresh() throws BeansException;
+
+    /**
+     * 关闭应用上下文，销毁所有单例bean
+     */
+    void close() throws BeansException;
+
+    /**
+     * 注册一个关闭钩子，在JVM关闭时调用
+     */
+    void registerShutdownHook();
 
 }

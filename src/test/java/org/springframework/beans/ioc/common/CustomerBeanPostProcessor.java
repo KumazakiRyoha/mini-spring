@@ -2,7 +2,7 @@ package org.springframework.beans.ioc.common;
 
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.BeansException;
-import org.springframework.beans.ioc.Car;
+import org.springframework.beans.ioc.bean.Car;
 
 public class CustomerBeanPostProcessor implements BeanPostProcessor {
     @Override

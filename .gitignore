@@ -4,8 +4,8 @@ out/
 !**/src/test/**/out/
 
 ### Java ###
-*.class                 # 添加这一行来忽略所有 .class 文件
-target/                 # 添加这一行来忽略 Maven 构建目录
+*.class
+target/
 
 ### Eclipse ###
 .apt_generated

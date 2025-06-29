@@ -3,6 +3,8 @@ package org.springframework.beans.ioc;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.beans.ioc.bean.Car;
+import org.springframework.beans.ioc.bean.Person;
 import org.springframework.beans.ioc.common.CustomBeanFactoryPostProcessor;
 import org.springframework.beans.ioc.common.CustomerBeanPostProcessor;
 

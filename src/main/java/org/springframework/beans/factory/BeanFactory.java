@@ -5,6 +5,7 @@ import org.springframework.beans.BeanException;
 /**
  * Interface to be implemented by objects that hold a number of bean
  * definitions,
+ * 定义更通用的Bean获取方式
  */
 public interface BeanFactory {
 

@@ -1,4 +1,4 @@
-package org.springframework.beans.ioc;
+package org.springframework.beans.ioc.bean;
 
 /**
  * 用于测试的Car类，包含对Person的引用

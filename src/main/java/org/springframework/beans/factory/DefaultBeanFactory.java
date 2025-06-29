@@ -6,11 +6,10 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultBeanFactory implements BeanFactory{
+public class DefaultBeanFactory implements BeanFactory {
 
     private final Map<String, Object> singletonObjects = new HashMap<>();
     private final Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
-
 
     @Override
     public Object getBean(String name) throws BeanException {
@@ -33,5 +32,11 @@ public class DefaultBeanFactory implements BeanFactory{
     public void registerBean(String name, Object bean) {
         singletonObjects.put(name, bean);
         beanDefinitionMap.put(name, new BeanDefinition(bean.getClass()));
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeanException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getBean'");
     }
 }
