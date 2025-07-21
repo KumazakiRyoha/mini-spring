@@ -1,5 +1,7 @@
 package org.springframework.beans.ioc;
 
+import org.springframework.beans.factory.Car;
+
 /**
  * 用于测试的Person类
  */
