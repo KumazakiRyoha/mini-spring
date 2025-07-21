@@ -1,10 +1,7 @@
 package org.springframework.beans.ioc.bean;
 
-import org.junit.platform.engine.DiscoveryFilter;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-
-import net.bytebuddy.dynamic.DynamicType.Builder.MethodDefinition.ParameterDefinition.Initial;
 
 /**
  * 用于测试的Person类

@@ -3,6 +3,7 @@ package org.springframework.beans.factory.support;
 import org.springframework.beans.BeanException;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.PropertyValues;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -262,6 +263,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @throws Exception
      */
     protected Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
+
+        if (bean instanceof BeanFactoryAware) {
+            // 如果bean实现了BeanFactoryAware接口，设置BeanFactory
+            ((BeanFactoryAware) bean).setBeanFactory(this);
+        }
+
         // 执行BeanPostProcessor的前置处理方法
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
