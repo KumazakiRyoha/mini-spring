@@ -83,7 +83,6 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
     public abstract ConfigurableListableBeanFactory getBeanFactory();
 
-<<<<<<< HEAD
     public void close() {
         doClose();
     }
@@ -109,6 +108,4 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
         getBeanFactory().destroySingletons();
     }
 
-=======
->>>>>>> ed89fb3c83e68a6f523c61be323fada2202ec6fa
 }
