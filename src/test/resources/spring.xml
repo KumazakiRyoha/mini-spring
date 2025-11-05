@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
     <!-- Person bean定义 -->
-    <bean id="person" class="org.springframework.test.ioc.bean.Person" >
+    <!-- <bean id="person" class="org.springframework.beans.ioc.bean.Person">
         <property name="name" value="derek"/>
         <property name="car" ref="car"/>
     </bean>
 
+    <bean id="car" class="org.springframework.beans.ioc.bean.Car"/> -->
 
+<!-- 
     <bean class="org.springframework.beans.ioc.common.CustomBeanFactoryPostProcessor"/>
  
-    <bean class="org.springframework.beans.ioc.common.CustomerBeanPostProcessor"/>
+    <bean class="org.springframework.beans.ioc.common.CustomerBeanPostProcessor"/> -->
+
+    <bean id="helloService" class="org.springframework.beans.ioc.service.HelloService"/>
 </beans>

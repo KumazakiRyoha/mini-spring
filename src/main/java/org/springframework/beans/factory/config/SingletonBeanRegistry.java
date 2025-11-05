@@ -22,6 +22,14 @@ public interface SingletonBeanRegistry {
     Object getSingleton(String beanName);
 
     /**
+     * 将给定的对象添加为单例，使用给定的bean名称。
+     * 
+     * @param beanName
+     * @param singletonObject
+     */
+    void addSingleton(String beanName, Object singletonObject);
+
+    /**
      * 判断指定名称的单例bean是否存在于注册表中。
      * 
      * @param beanName 要检查的bean名称

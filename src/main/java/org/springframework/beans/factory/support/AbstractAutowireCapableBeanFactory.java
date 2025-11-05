@@ -44,8 +44,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         // 注册有销毁方法的bean
         registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
 
-        // 注册单例
-        registerSingleton(beanName, bean);
+        if (beanDefinition.isSingleton()) {
+            addSingleton(beanName, bean);
+        }
+
         return bean;
     }
 
@@ -57,16 +59,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @param beanDefinition
      */
     protected void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition beanDefinition) {
-        // 如果bean实现了DisposableBean接口，注册销毁方法
-        if (bean instanceof DisposableBean) {
-            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
+        // Only register disposable beans for singletons
+        if (beanDefinition.isSingleton()) {
+            // 如果bean实现了DisposableBean接口，注册销毁方法
+            if (bean instanceof DisposableBean) {
+                registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
+            }
+
+            // 如果有自定义的销毁方法，注册销毁方法
+            String destroyMethodName = beanDefinition.getDestroyMethodName();
+            if (destroyMethodName != null && !destroyMethodName.isEmpty()) {
+                registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
+            }
         }
 
-        // 如果有自定义的销毁方法，注册销毁方法
-        String destroyMethodName = beanDefinition.getDestroyMethodName();
-        if (destroyMethodName != null && !destroyMethodName.isEmpty()) {
-            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
-        }
     }
 
     /**

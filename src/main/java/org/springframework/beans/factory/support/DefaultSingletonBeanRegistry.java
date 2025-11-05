@@ -125,4 +125,9 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
         // 然后清空单例对象映射
         this.singletonObjects.clear();
     }
+
+    @Override
+    public void addSingleton(String beanName, Object singletonObject) {
+        this.singletonObjects.put(beanName, singletonObject);
+    }
 }
