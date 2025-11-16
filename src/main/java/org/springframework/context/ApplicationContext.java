@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.HierarchicalBeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.context.event.ApplicationEventPublisher;
 import org.springframework.core.io.ResourceLoader;
 
 /**
@@ -12,6 +13,6 @@ import org.springframework.core.io.ResourceLoader;
  * supports this.
  */
 public interface ApplicationContext
-        extends ListableBeanFactory, HierarchicalBeanFactory, ResourceLoader {
+                extends ListableBeanFactory, HierarchicalBeanFactory, ResourceLoader, ApplicationEventPublisher {
 
 }
