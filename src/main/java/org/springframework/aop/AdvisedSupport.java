@@ -13,6 +13,9 @@ public class AdvisedSupport {
     // 方法匹配器
     private MethodMatcher methodMatcher;
 
+    // 是否强制使用 CGLIB 代理（true 表示强制使用 CGLIB 代理 false 表示不强制使用 CGLIB 代理）
+    private boolean proxyTargetClass = false;
+
     public TargetSource getTargetSource() {
         return targetSource;
     }
@@ -35,6 +38,14 @@ public class AdvisedSupport {
 
     public void setMethodMatcher(MethodMatcher methodMatcher) {
         this.methodMatcher = methodMatcher;
+    }
+
+    public boolean isProxyTargetClass() {
+        return proxyTargetClass;
+    }
+
+    public void setProxyTargetClass(boolean proxyTargetClass) {
+        this.proxyTargetClass = proxyTargetClass;
     }
 
 }
