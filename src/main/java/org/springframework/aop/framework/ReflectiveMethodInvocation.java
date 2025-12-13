@@ -8,11 +8,11 @@ import org.aopalliance.intercept.MethodInvocation;
 public class ReflectiveMethodInvocation implements MethodInvocation {
 
     // 目标对象
-    private final Object target;
+    protected final Object target;
     // 目标方法
-    private final Method method;
+    protected final Method method;
     // 方法参数
-    private final Object[] arguments;
+    protected final Object[] arguments;
 
     public ReflectiveMethodInvocation(Object target, Method method, Object[] arguments) {
         this.target = target;
