@@ -8,8 +8,8 @@ public class Car {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setBrand(String brand1) {
+        this.brand = brand1;
     }
 
 
