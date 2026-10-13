@@ -8,14 +8,8 @@ public class Car {
         return brand;
     }
 
-    public void setBrand(String brand1) {
-        this.brand = brand1;
-    }
-
-
-    // 测试代码
-    public static void setTest(){
-        System.out.println("aaaaa");
+    public void setBrand(String brandCar) {
+        this.brand = brandCar;
     }
 
     @Override
