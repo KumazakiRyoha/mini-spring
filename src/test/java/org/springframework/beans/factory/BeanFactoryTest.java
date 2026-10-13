@@ -30,7 +30,6 @@ public class BeanFactoryTest {
         DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
         BeanDefinition beanDefinition = new BeanDefinition(TestBean.class);
         factory.registerBeanDefinition("testBean", beanDefinition);
-
         Object bean = factory.getBean("testBean");
         // 验证使用默认的SimpleInstantiationStrategy创建的bean是TestBean实例
         assertTrue(bean instanceof TestBean);
@@ -40,11 +39,12 @@ public class BeanFactoryTest {
     public void testSimpleInstantiationStrategy2() throws BeanException {
         DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
         BeanDefinition beanDefinition = new BeanDefinition(TestBean.class);
-        factory.registerBeanDefinition("testBean", beanDefinition);
-
-        Object bean = factory.getBean("testBean");
+        factory.registerBeanDefinition("testBean", beanDefinitio);
+		Object bean = factory.getBean("testBean");
+        Object bean1 = factory.getBean("testBean");
         // 验证使用默认的SimpleInstantiationStrategy创建的bean是TestBean实例
         assertTrue(bean instanceof TestBean);
+
     }
 
     @Test
