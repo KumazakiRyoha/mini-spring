@@ -36,6 +36,17 @@ public class BeanFactoryTest {
         assertTrue(bean instanceof TestBean);
     }
 
+        @Test
+    public void testSimpleInstantiationStrategy2() throws BeanException {
+        DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+        BeanDefinition beanDefinition = new BeanDefinition(TestBean.class);
+        factory.registerBeanDefinition("testBean", beanDefinition);
+
+        Object bean = factory.getBean("testBean");
+        // 验证使用默认的SimpleInstantiationStrategy创建的bean是TestBean实例
+        assertTrue(bean instanceof TestBean);
+    }
+
     @Test
     public void testCglibInstantiationStrategy() throws BeanException {
         // 添加JVM参数检查
