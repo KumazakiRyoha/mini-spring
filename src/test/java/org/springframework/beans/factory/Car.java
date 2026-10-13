@@ -12,6 +12,12 @@ public class Car {
         this.brand = brand;
     }
 
+
+    // 测试代码
+    public static void setTest(){
+        System.out.println("aaaaa");
+    }
+
     @Override
     public String toString() {
         return "Car{" +
