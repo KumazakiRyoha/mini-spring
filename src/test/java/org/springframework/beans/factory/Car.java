@@ -8,8 +8,8 @@ public class Car {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setBrand(String brandCar) {
+        this.brand = brandCar;
     }
 
     @Override
